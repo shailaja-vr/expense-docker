@@ -1,6 +1,9 @@
+# default networks:
+#   # The presence of these objects is sufficient to define them
+#   expense: {}
 networks:
-  # The presence of these objects is sufficient to define them
-  expense: {}
+  default:
+    name: expense
 volumes:
   mysql:
 services:
