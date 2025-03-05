@@ -38,7 +38,7 @@ networks:
     name: expense
 volumes:
   mysql:
-    external: true  #if true, you need to create volume manually --> docker volume create mysql
+    # external: true  #if true, you need to create volume manually --> docker volume create mysql
 services:
   mysql:
     image: mysql:1.0.0    ## before run the docker compose file, docker image should be available
