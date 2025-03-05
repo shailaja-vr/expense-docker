@@ -1,15 +1,12 @@
-# default networks:
-#   # The presence of these objects is sufficient to define them
-#   expense: {}
 networks:
-  default:
-    name: expense
+  # The presence of these objects is sufficient to define them
+  expense: {}
 volumes:
   mysql:
 services:
   backend:
     image: backend:1.0.0
-    command: sh -c "sleep 10 && node /opt/backend/index.js"
+    command: sh -c "sleep 20 && node /opt/backend/index.js"
     networks:
     - expense
     container_name: backend
