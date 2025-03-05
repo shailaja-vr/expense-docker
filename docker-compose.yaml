@@ -36,6 +36,7 @@ name: expense
 networks:
   default:
     name: expense
+    external: true
 volumes:
   mysql:
     # external: true  #if true, you need to create volume manually --> docker volume create mysql
