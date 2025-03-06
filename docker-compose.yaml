@@ -1,64 +1,64 @@
-# networks:
-#   # The presence of these objects is sufficient to define them
-#   expense: {}
-# volumes:
-#   mysql:
-# services:
-#   backend:
-#     image: backend:1.0.0
-#     command: sh -c "sleep 20 && node /opt/backend/index.js"
-#     networks:
-#     - expense
-#     container_name: backend
-#     depends_on:
-#     - mysql
-
-#   # docker run -d --name mysql --network expense -v mysql:/var/lib/mysql mysql:1.0.0
-#   mysql:
-#     image: mysql:1.0.0
-#     networks:
-#     - expense
-#     container_name: mysql
-#     volumes:
-#     - mysql:/var/lib/mysql
-  
-#   frontend:
-#     image: frontend:1.0.0
-#     networks:
-#     - expense
-#     container_name: frontend
-#     ports:
-#     - 80:80
-#     depends_on:
-#     - backend
-
-name: expense
 networks:
-  default:
-    name: expense
-    external: true
+  # The presence of these objects is sufficient to define them
+  expense: {}
 volumes:
   mysql:
-    # external: true  #if true, you need to create volume manually --> docker volume create mysql
 services:
-  mysql:
-    image: mysql:1.0.0    ## before run the docker compose file, docker image should be available
-    container_name: mysql   ## --name mysql
-    volumes:
-      - source: mysql
-        target: /var/lib/mysql    ## mysql home directory
-        type: volume    # -v volume-name:/path/in/container
   backend:
     image: backend:1.0.0
+    command: sh -c "sleep 5 && node /opt/backend/index.js"
+    networks:
+    - expense
     container_name: backend
-    command: sh -c "sleep 20 && node /opt/backend/index.js"
     depends_on:
-      - mysql
+    - mysql
+
+  # docker run -d --name mysql --network expense -v mysql:/var/lib/mysql mysql:1.0.0
+  mysql:
+    image: mysql:1.0.0
+    networks:
+    - expense
+    container_name: mysql
+    volumes:
+    - mysql:/var/lib/mysql
+  
   frontend:
     image: frontend:1.0.0
+    networks:
+    - expense
     container_name: frontend
-    depends_on:
-      - backend
     ports:
-      - "80:80"
+    - 80:80
+    depends_on:
+    - backend
+
+# name: expense
+# networks:
+#   default:
+#     name: expense
+#     external: true
+# volumes:
+#   mysql:
+#     # external: true  #if true, you need to create volume manually --> docker volume create mysql
+# services:
+#   mysql:
+#     image: mysql:1.0.0    ## before run the docker compose file, docker image should be available
+#     container_name: mysql   ## --name mysql
+#     volumes:
+#       - source: mysql
+#         target: /var/lib/mysql    ## mysql home directory
+#         type: volume    # -v volume-name:/path/in/container
+#   backend:
+#     image: backend:1.0.0
+#     container_name: backend
+#     command: sh -c "sleep 20 && node /opt/backend/index.js"
+#     depends_on:
+#       - mysql
+#   frontend:
+#     image: frontend:1.0.0
+#     container_name: frontend
+#     depends_on:
+#       - backend
+#     ports:
+#       - "80:80"
 
